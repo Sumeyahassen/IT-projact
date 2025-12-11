@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const db = require('../models'); // Load all models
 const authRoutes = require('./routes/authRoutes');
+const priceRoutes = require("./routes/priceRoutes");
 
 const app = express(); // ← app must be created here
 
