@@ -6,13 +6,14 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const app = express();
-let users = [];
+const db = require("./config/db"); const User = require("./models/user")(db);;
 const adminRoutes = require("./routes/admin")(users);
 app.use("/api/admin", adminRoutes);
 app.use(cors());
 app.use(express.json());
 
 // In-memory database
+const connectDB = require('./config/db');
 
 // Register
 app.post('/api/auth/register', async (req, res) => {
@@ -29,7 +30,7 @@ app.post('/api/auth/register', async (req, res) => {
 app.post('/api/auth/login', async (req, res) => {
   const { phone, password } = req.body;
   const user = users.find(u => u.phone === phone);
-  if (!user || !await bcrypt.compare(password, user.password)) 
+  if (!user || !await bcrypt.compare(password, user.password))
     return res.status(401).json({msg:"Wrong credentials"});
   const token = jwt.sign({id:user.id, role:user.role}, 'secret123', {expiresIn:'7d'});
   res.json({token, user:{id:user.id, username:user.username, phone, role:user.role}});
