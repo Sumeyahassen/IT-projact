@@ -60,3 +60,4 @@ app.get('/api/weather/all', async (req, res) => {
 app.get('/', (req, res) => res.json({msg:"Ethiopia Agri API – LIVE"}));
 
 app.listen(5000, () => console.log('Server running → http://localhost:5000'));
+const adminRoutes = require("./routes/admin"); app.use("/api/admin", adminRoutes);
