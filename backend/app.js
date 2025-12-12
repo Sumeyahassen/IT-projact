@@ -6,11 +6,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const app = express();
+let users = [];
+const adminRoutes = require("./routes/admin")(users);
+app.use("/api/admin", adminRoutes);
 app.use(cors());
 app.use(express.json());
 
 // In-memory database
-let users = [];
 
 // Register
 app.post('/api/auth/register', async (req, res) => {
@@ -60,4 +62,3 @@ app.get('/api/weather/all', async (req, res) => {
 app.get('/', (req, res) => res.json({msg:"Ethiopia Agri API – LIVE"}));
 
 app.listen(5000, () => console.log('Server running → http://localhost:5000'));
-const adminRoutes = require("./routes/admin"); app.use("/api/admin", adminRoutes);
