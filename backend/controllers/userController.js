@@ -1,5 +1,4 @@
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const { ProductPrice, User } = require('../models');const bcrypt = require('bcryptjs');
 
 // GET all non-admin users (farmers, agents, extensions)
 exports.getAllUsers = async (req, res) => {

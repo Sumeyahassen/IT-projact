@@ -1,5 +1,8 @@
+// This file is now empty - model defined in index.js
+// models/User.js
+
+const { sequelize } = require('./index');  // ← Get the sequelize instance from index.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
 
 const User = sequelize.define('User', {
   full_name: {
@@ -25,7 +28,7 @@ const User = sequelize.define('User', {
   },
 }, {
   tableName: 'users',
-  timestamps: true,
+  timestamps: true,  // createdAt and updatedAt columns
 });
 
-module.exports = User;
+module.exports = null;

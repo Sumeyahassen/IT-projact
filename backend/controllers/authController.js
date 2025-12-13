@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const { User } = require('../models');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
         region: user.region,
       },
       JWT_SECRET,
-      { expiresIn: '7d' }  // Token valid for 7 days
+      { expiresIn: '365d' }  // Changed to 1 year for easy testing - change back to '7d' in production
     );
 
     res.json({

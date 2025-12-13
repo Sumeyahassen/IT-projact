@@ -2,8 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const sequelize = require('./models/index');
-
+const { sequelize } = require('./models/index');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -25,7 +24,7 @@ app.get('/api/admin/test', verifyToken, requireAdmin, (req, res) => {
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
-
+app.use('/api/prices', require('./routes/priceRoutes'));
 // Start server with database connection
 async function startServer() {
   try {
