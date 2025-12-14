@@ -3,7 +3,7 @@ const router = express.Router();
 const { ProductPrice, User } = require('../models');
 const { verifyToken } = require('../middleware/authMiddleware');
 
-// GET all/latest prices - Any authenticated user can view
+// GET prices - any authenticated user (farmers can view)
 router.get('/', verifyToken, async (req, res) => {
   try {
     const { product_name, region } = req.query;
@@ -14,13 +14,7 @@ router.get('/', verifyToken, async (req, res) => {
 
     const prices = await ProductPrice.findAll({
       where,
-      include: [
-        {
-          model: User,
-          as: 'agent',
-          attributes: ['full_name', 'phone_number'],
-        },
-      ],
+      include: [{ model: User, as: 'agent', attributes: ['full_name'] }],
       order: [['createdAt', 'DESC']],
     });
 
@@ -30,11 +24,10 @@ router.get('/', verifyToken, async (req, res) => {
   }
 });
 
-// POST new price - ONLY agents can do this
+// POST price - only agents
 router.post('/', verifyToken, async (req, res) => {
-  // Check if user is agent
   if (req.user.role !== 'agent') {
-    return res.status(403).json({ message: 'Forbidden: Only agents can update prices' });
+    return res.status(403).json({ message: 'Only agents can update prices' });
   }
 
   try {
@@ -51,15 +44,8 @@ router.post('/', verifyToken, async (req, res) => {
       updated_by: req.user.id,
     });
 
-    // Get the created price with agent name
     const priceWithAgent = await ProductPrice.findByPk(newPrice.id, {
-      include: [
-        {
-          model: User,
-          as: 'agent',
-          attributes: ['full_name'],
-        },
-      ],
+      include: [{ model: User, as: 'agent', attributes: ['full_name'] }],
     });
 
     res.status(201).json({
