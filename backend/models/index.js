@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Create sequelize instance
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   logging: false,
@@ -59,13 +58,40 @@ const ProductPrice = sequelize.define('ProductPrice', {
   timestamps: true,
 });
 
+// Define Notification model
+const Notification = sequelize.define('Notification', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  region: {
+    type: DataTypes.STRING,
+    allowNull: true,  // null = all regions
+  },
+  created_by: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+}, {
+  tableName: 'notifications',
+  timestamps: true,
+});
+
 // Associations
 ProductPrice.belongsTo(User, { foreignKey: 'updated_by', as: 'agent' });
 User.hasMany(ProductPrice, { foreignKey: 'updated_by', as: 'prices' });
+
+Notification.belongsTo(User, { foreignKey: 'created_by', as: 'extension' });
+User.hasMany(Notification, { foreignKey: 'created_by', as: 'notifications' });
 
 // Export
 module.exports = {
   sequelize,
   User,
   ProductPrice,
+  Notification,
 };

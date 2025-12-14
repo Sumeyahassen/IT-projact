@@ -5,7 +5,7 @@ const cors = require('cors');
 const { sequelize } = require('./models/index');
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use('/api/notifications', require('./routes/notificationRoutes'));
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -41,6 +41,7 @@ async function startServer() {
     console.error('❌ Unable to start server:', error.message);
     process.exit(1);
   }
+  console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'LOADED' : 'MISSING');
 }
 
 startServer();
