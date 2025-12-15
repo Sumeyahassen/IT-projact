@@ -12,11 +12,11 @@ const menuItems = {
     { to: '/farmer/prices', label: 'Market Prices', icon: '💰' },
     { to: '/farmer/notifications', label: 'Notifications', icon: '🔔' },
   ],
-  agent: [
-    { to: '/agent', label: 'Dashboard', icon: '🏠' },
-    { to: '/agent/update-price', label: 'Update Prices', icon: '📈' },
-    { to: '/agent/prices', label: 'View Prices', icon: '💰' },
-  ],
+ agent: [
+  { to: '/agent', label: 'Dashboard', icon: '🏠' },
+  { to: '/agent/update-price', label: 'Update Price', icon: '📈' },
+  { to: '/agent/prices', label: 'View Prices', icon: '💰' },
+],
  extension: [
   { to: '/extension', label: 'Dashboard', icon: '🏠' },
   { to: '/extension/send-notification', label: 'Send Notification', icon: '📢' },

@@ -13,6 +13,8 @@ import FarmerDashboard from "./pages/Farmer/Dashboard.jsx";
 import FarmerPrices from "./pages/Farmer/Prices.jsx";
 import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
 import AgentDashboard from "./pages/Agent/Dashboard.jsx";
+import UpdatePrice from "./pages/Agent/UpdatePrice.jsx";
+import ViewPrices from "./pages/Agent/ViewPrices.jsx";
 import ExtensionDashboard from "./pages/Extension/Dashboard.jsx";
 import SentNotifications from "./pages/Extension/SendNotification.jsx";
 
@@ -20,7 +22,7 @@ import Home from "./pages/Landing/Home.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
-import PriceUpdate from "./pages/Agent/PriceUpdate.jsx";
+import PriceUpdate from "./pages/Agent/UpdatePrice.jsx";
 
 function App() {
   return (
@@ -52,7 +54,8 @@ function App() {
         {/* Agent Protected Route */}
         <Route element={<ProtectedRoute allowedRoles={["agent"]} />}>
           <Route path="/agent" element={<AgentDashboard />} />
-          <Route path="/agent/PriceUpdate(" element={<PriceUpdate />} />
+          <Route path="/agent/update-price" element={<UpdatePrice />} />
+          <Route path="/agent/prices" element={<ViewPrices />} />
         </Route>
 
         {/* Extension Protected Route */}
