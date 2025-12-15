@@ -88,10 +88,22 @@ User.hasMany(ProductPrice, { foreignKey: 'updated_by', as: 'prices' });
 Notification.belongsTo(User, { foreignKey: 'created_by', as: 'extension' });
 User.hasMany(Notification, { foreignKey: 'created_by', as: 'notifications' });
 
+//
+const LocalProduct = sequelize.define('LocalProduct', {
+  product_name: DataTypes.STRING,
+  price_per_kg: DataTypes.FLOAT,
+  region: DataTypes.STRING,
+  added_by: DataTypes.INTEGER,
+});
+
+LocalProduct.belongsTo(User, { foreignKey: 'added_by', as: 'farmer' });
+User.hasMany(LocalProduct, { foreignKey: 'added_by', as: 'localProducts' });
+
 // Export
 module.exports = {
   sequelize,
   User,
   ProductPrice,
   Notification,
+  LocalProduct,
 };

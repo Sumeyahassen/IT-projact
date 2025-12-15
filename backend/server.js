@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware - MUST BE BEFORE ROUTES
 app.use(cors());
 app.use(express.json());  // ← This parses JSON body — critical!
+app.use('/api/local-products', require('./routes/localProductRoutes'));
 
 // Test route
 app.get('/', (req, res) => {
@@ -21,7 +22,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/prices', require('./routes/priceRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
-
+app.use('/api/sms', require('./routes/smsRoutes'));
 // Protected test route (optional)
 const { verifyToken, requireAdmin } = require('./middleware/authMiddleware');
 app.get('/api/admin/test', verifyToken, requireAdmin, (req, res) => {
