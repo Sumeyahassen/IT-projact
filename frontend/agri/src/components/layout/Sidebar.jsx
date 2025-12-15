@@ -11,6 +11,7 @@ const menuItems = {
     { to: '/farmer', label: 'Dashboard', icon: '🏠' },
     { to: '/farmer/prices', label: 'Market Prices', icon: '💰' },
     { to: '/farmer/notifications', label: 'Notifications', icon: '🔔' },
+    { to: '/farmer/add-local-price', label: 'Add Local Price', icon: '➕' },
   ],
  agent: [
   { to: '/agent', label: 'Dashboard', icon: '🏠' },

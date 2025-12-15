@@ -12,6 +12,7 @@ import AdminPrices from "./pages/Admin/Prices.jsx";
 import FarmerDashboard from "./pages/Farmer/Dashboard.jsx";
 import FarmerPrices from "./pages/Farmer/Prices.jsx";
 import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
+import AddLocalPrice from "./pages/Farmer/AddLocalPrice.jsx";
 import AgentDashboard from "./pages/Agent/Dashboard.jsx";
 import UpdatePrice from "./pages/Agent/UpdatePrice.jsx";
 import ViewPrices from "./pages/Agent/ViewPrices.jsx";
@@ -42,14 +43,12 @@ function App() {
         </Route>
 
         {/* Farmer Protected Route */}
-        <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>
-          <Route path="/farmer" element={<FarmerDashboard />} />
-          <Route path="/farmer/prices" element={<FarmerPrices />} />
-          <Route
-            path="/farmer/notifications"
-            element={<FarmerNotifications />}
-          />
-        </Route>
+       <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>
+  <Route path="/farmer" element={<FarmerDashboard />} />
+  <Route path="/farmer/prices" element={<FarmerPrices />} />
+  <Route path="/farmer/notifications" element={<FarmerNotifications />} />
+  <Route path="/farmer/add-local-price" element={<AddLocalPrice />} />
+</Route>
 
         {/* Agent Protected Route */}
         <Route element={<ProtectedRoute allowedRoles={["agent"]} />}>
