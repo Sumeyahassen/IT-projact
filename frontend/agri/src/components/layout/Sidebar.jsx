@@ -17,11 +17,11 @@ const menuItems = {
     { to: '/agent/update-price', label: 'Update Prices', icon: '📈' },
     { to: '/agent/prices', label: 'View Prices', icon: '💰' },
   ],
-  extension: [
-    { to: '/extension', label: 'Dashboard', icon: '🏠' },
-    { to: '/extension/send-notification', label: 'Send Notification', icon: '📢' },
-    { to: '/extension/notifications', label: 'View Sent', icon: '📋' },
-  ],
+ extension: [
+  { to: '/extension', label: 'Dashboard', icon: '🏠' },
+  { to: '/extension/send-notification', label: 'Send Notification', icon: '📢' },
+  { to: '/extension/sent-notifications', label: 'View Sent', icon: '📋' },
+],
 };
 
 export default function Sidebar() {

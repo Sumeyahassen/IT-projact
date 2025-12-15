@@ -1,42 +1,61 @@
 import { useEffect, useState } from 'react';
-import api from '../../services/api';
-import Layout from '../../components/layout/Layout';
+import api from '../../services/api.js';
+import Sidebar from '../../components/layout/Sidebar.jsx';
+
+const regions = [
+  'Addis Ababa', 'Afar', 'Amhara', 'Benishangul-Gumuz', 'Central Ethiopia',
+  'Dire Dawa', 'Gambela', 'Harari', 'Oromia', 'Sidama', 'Somali',
+  'South Ethiopia', 'South West Ethiopia', 'Tigray'
+];
+
+const roles = ['farmer', 'agent', 'extension'];
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({
-    full_name: '', phone_number: '', region: '', role: 'farmer', password: ''
+    full_name: '',
+    phone_number: '',
+    region: '',
+    role: 'farmer',
+    password: ''
   });
   const [editingId, setEditingId] = useState(null);
-
-  const regions = [
-    'Addis Ababa', 'Afar', 'Amhara', 'Benishangul-Gumuz', 'Central Ethiopia',
-    'Dire Dawa', 'Gambela', 'Harari', 'Oromia', 'Sidama', 'Somali',
-    'South Ethiopia', 'South West Ethiopia', 'Tigray'
-  ];
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
-    const res = await api.get('/users');
-    setUsers(res.data);
+    try {
+      const res = await api.get('/users');
+      setUsers(res.data);
+    } catch (err) {
+      setMessage('Error loading users');
+    }
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
+
     try {
       if (editingId) {
         await api.put(`/users/${editingId}`, form);
+        setMessage('User updated successfully');
       } else {
         await api.post('/users', form);
+        setMessage('User created successfully');
       }
-      fetchUsers();
       setForm({ full_name: '', phone_number: '', region: '', role: 'farmer', password: '' });
       setEditingId(null);
+      fetchUsers();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error');
+      setMessage(err.response?.data?.message || 'Error saving user');
     }
   };
 
@@ -52,89 +71,155 @@ export default function UserManagement() {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Delete this user?')) {
+    if (!window.confirm('Are you sure you want to delete this user?')) return;
+
+    try {
       await api.delete(`/users/${id}`);
+      setMessage('User deleted successfully');
       fetchUsers();
+    } catch (err) {
+      setMessage('Error deleting user');
     }
   };
 
   return (
-    <Layout>
-      <h1 className="text-3xl font-bold text-green-800 mb-8">Admin - User Management</h1>
+    <div className="bg-white rounded-xl shadow-lg p-8">
+      <h2 className="text-3xl font-bold text-green-800 mb-8">
+        {editingId ? 'Edit User' : 'Add New User'}
+      </h2>
 
-      {/* Form */}
-      <div className="bg-white p-8 rounded-lg shadow mb-8">
-        <h2 className="text-2xl font-semibold mb-6">{editingId ? 'Edit' : 'Add'} User</h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {message && (
+        <div className={`p-4 rounded-lg mb-6 ${message.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+          {message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+          <input
+            type="text"
+            name="full_name"
+            value={form.full_name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+          <input
+            type="text"
+            name="phone_number"
+            value={form.phone_number}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Region</label>
+          <select
+            name="region"
+            value={form.region}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600"
+          >
+            <option value="">Select region</option>
+            {regions.map(r => <option key={r} value={r}>{r}</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+          <select
+            name="role"
+            value={form.role}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600"
+          >
+            {roles.map(r => <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>)}
+          </select>
+        </div>
+
+        {!editingId && (
           <div>
-            <label className="block text-sm font-medium mb-1">Full Name</label>
-            <input type="text" value={form.full_name} onChange={e => setForm({...form, full_name: e.target.value})} required className="w-full px-4 py-3 border rounded-lg" />
+            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required={!editingId}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600"
+            />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Phone Number</label>
-            <input type="text" value={form.phone_number} onChange={e => setForm({...form, phone_number: e.target.value})} required className="w-full px-4 py-3 border rounded-lg" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Region</label>
-            <select value={form.region} onChange={e => setForm({...form, region: e.target.value})} required className="w-full px-4 py-3 border rounded-lg">
-              <option value="">Select region</option>
-              {regions.map(r => <option key={r} value={r}>{r}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Role</label>
-            <select value={form.role} onChange={e => setForm({...form, role: e.target.value})} className="w-full px-4 py-3 border rounded-lg">
-              {['farmer', 'agent', 'extension'].map(r => <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>)}
-            </select>
-          </div>
-          {!editingId && (
-            <div>
-              <label className="block text-sm font-medium mb-1">Password</label>
-              <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required className="w-full px-4 py-3 border rounded-lg" />
-            </div>
-          )}
-          <div className="md:col-span-2">
-            <button type="submit" className="bg-green-600 text-white px-6 py-3 rounded-lg">
-              {editingId ? 'Update User' : 'Add User'}
+        )}
+
+        <div className="md:col-span-2">
+          <button
+            type="submit"
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition"
+          >
+            {editingId ? 'Update User' : 'Add User'}
+          </button>
+          {editingId && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditingId(null);
+                setForm({ full_name: '', phone_number: '', region: '', role: 'farmer', password: '' });
+              }}
+              className="ml-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg"
+            >
+              Cancel
             </button>
-            {editingId && (
-              <button type="button" onClick={() => { setEditingId(null); setForm({}); }} className="ml-4 bg-gray-500 text-white px-6 py-3 rounded-lg">
-                Cancel
-              </button>
-            )}
-          </div>
-        </form>
-      </div>
+          )}
+        </div>
+      </form>
 
-      {/* Users List */}
-      <div className="bg-white p-8 rounded-lg shadow">
-        <h2 className="text-2xl font-semibold mb-6">All Users</h2>
-        <table className="w-full text-left">
+      <h2 className="text-3xl font-bold text-green-800 mb-8">All Users</h2>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="p-3">Name</th>
-              <th className="p-3">Phone</th>
-              <th className="p-3">Region</th>
-              <th className="p-3">Role</th>
-              <th className="p-3">Actions</th>
+            <tr className="bg-green-100">
+              <th className="p-4 border">Full Name</th>
+              <th className="p-4 border">Phone</th>
+              <th className="p-4 border">Region</th>
+              <th className="p-4 border">Role</th>
+              <th className="p-4 border">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map(u => (
-              <tr key={u.id} className="border-t">
-                <td className="p-3">{u.full_name}</td>
-                <td className="p-3">{u.phone_number}</td>
-                <td className="p-3">{u.region}</td>
-                <td className="p-3 capitalize">{u.role}</td>
-                <td className="p-3">
-                  <button onClick={() => handleEdit(u)} className="text-blue-600 mr-4">Edit</button>
-                  <button onClick={() => handleDelete(u.id)} className="text-red-600">Delete</button>
+            {users.map(user => (
+              <tr key={user.id} className="hover:bg-gray-50">
+                <td className="p-4 border">{user.full_name}</td>
+                <td className="p-4 border">{user.phone_number}</td>
+                <td className="p-4 border">{user.region}</td>
+                <td className="p-4 border capitalize">{user.role}</td>
+                <td className="p-4 border">
+                  <button
+                    onClick={() => handleEdit(user)}
+                    className="text-blue-600 hover:underline mr-4"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(user.id)}
+                    className="text-red-600 hover:underline"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </Layout>
+    </div>
   );
 }

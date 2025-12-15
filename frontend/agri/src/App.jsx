@@ -1,41 +1,74 @@
-// App.jsx
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Auth/Login.jsx';
-import Register from './pages/Auth/Register.jsx';
-import AdminDashboard from './pages/Admin/Dashboard.jsx';
-import FarmerDashboard from './pages/Farmer/Dashboard.jsx';
-import AgentDashboard from './pages/Agent/Dashboard.jsx';
-import ExtensionDashboard from './pages/Extension/Dashboard.jsx';
-import ProtectedRoute from './components/common/ProtectedRoute.jsx';
-import NotFound from './pages/NotFound.jsx';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Auth/Login.jsx";
+import Register from "./pages/Auth/Register.jsx";
+
+import AdminDashboard from "./pages/Admin/Dashboard.jsx";
+import UserManagement from "./pages/Admin/UserManagement.jsx";
+import AdminNotifications from "./pages/Admin/Notifications.jsx";
+import AdminPrices from "./pages/Admin/Prices.jsx";
+
+import FarmerDashboard from "./pages/Farmer/Dashboard.jsx";
+import FarmerPrices from "./pages/Farmer/Prices.jsx";
+import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
+import AgentDashboard from "./pages/Agent/Dashboard.jsx";
+import ExtensionDashboard from "./pages/Extension/Dashboard.jsx";
+import SentNotifications from "./pages/Extension/SendNotification.jsx";
+
+import Home from "./pages/Landing/Home.jsx";
+import NotFound from "./pages/NotFound.jsx";
+
+import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
+import PriceUpdate from "./pages/Agent/PriceUpdate.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+        {/* Admin Protected Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<UserManagement />} />
+          <Route path="/admin/notifications" element={<AdminNotifications />} />
+          <Route path="/admin/prices" element={<AdminPrices />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={['farmer']} />}>
+        {/* Farmer Protected Route */}
+        <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>
           <Route path="/farmer" element={<FarmerDashboard />} />
+          <Route path="/farmer/prices" element={<FarmerPrices />} />
+          <Route
+            path="/farmer/notifications"
+            element={<FarmerNotifications />}
+          />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={['agent']} />}>
+        {/* Agent Protected Route */}
+        <Route element={<ProtectedRoute allowedRoles={["agent"]} />}>
           <Route path="/agent" element={<AgentDashboard />} />
+          <Route path="/agent/PriceUpdate(" element={<PriceUpdate />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={['extension']} />}>
+        {/* Extension Protected Route */}
+        <Route element={<ProtectedRoute allowedRoles={["extension"]} />}>
           <Route path="/extension" element={<ExtensionDashboard />} />
+          <Route
+            path="/extension/send-notification"
+            element={<SentNotifications />}
+          />
+          <Route
+            path="/extension/sent-notifications"
+            element={<SentNotifications />}
+          />
         </Route>
 
-        {/* Catch-all for unknown routes */}
+        {/* 404 - Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
