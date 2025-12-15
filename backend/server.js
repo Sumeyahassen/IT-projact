@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());  // ← This parses JSON body — critical!
 app.use('/api/local-products', require('./routes/localProductRoutes'));
+app.use('/api/weather', require('./routes/weatherRoutes'));
 
 // Test route
 app.get('/', (req, res) => {
