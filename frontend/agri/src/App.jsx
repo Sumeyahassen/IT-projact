@@ -14,6 +14,7 @@ import FarmerPrices from "./pages/Farmer/Prices.jsx";
 import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
 import AddLocalPrice from "./pages/Farmer/AddLocalPrice.jsx";
 import AgentDashboard from "./pages/Agent/Dashboard.jsx";
+import PriceManagement from "./pages/Agent/PriceManagement.jsx";
 import UpdatePrice from "./pages/Agent/UpdatePrice.jsx";
 import ViewPrices from "./pages/Agent/ViewPrices.jsx";
 import ExtensionDashboard from "./pages/Extension/Dashboard.jsx";
@@ -43,18 +44,22 @@ function App() {
         </Route>
 
         {/* Farmer Protected Route */}
-       <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>
-  <Route path="/farmer" element={<FarmerDashboard />} />
-  <Route path="/farmer/prices" element={<FarmerPrices />} />
-  <Route path="/farmer/notifications" element={<FarmerNotifications />} />
-  <Route path="/farmer/add-local-price" element={<AddLocalPrice />} />
-</Route>
+        <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>
+          <Route path="/farmer" element={<FarmerDashboard />} />
+          <Route path="/farmer/prices" element={<FarmerPrices />} />
+          <Route
+            path="/farmer/notifications"
+            element={<FarmerNotifications />}
+          />
+          <Route path="/farmer/add-local-price" element={<AddLocalPrice />} />
+        </Route>
 
         {/* Agent Protected Route */}
         <Route element={<ProtectedRoute allowedRoles={["agent"]} />}>
           <Route path="/agent" element={<AgentDashboard />} />
-          <Route path="/agent/update-price" element={<UpdatePrice />} />
           <Route path="/agent/prices" element={<ViewPrices />} />
+          <Route path="/agent/update-price" element={<UpdatePrice />} />
+          <Route path="/agent/manage-prices" element={<PriceManagement />} />
         </Route>
 
         {/* Extension Protected Route */}
