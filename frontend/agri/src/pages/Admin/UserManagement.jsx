@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api.js";
 import { FaSearch } from "react-icons/fa";
+import Layout from "../../components/layout/Layout.jsx";
 const regions = [
   "Addis Ababa",
   "Afar",
@@ -110,7 +111,8 @@ export default function UserManagement() {
   });
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8">
+  <Layout>
+      <div className="bg-white rounded-xl shadow-lg p-8">
       <h2 className="text-3xl font-bold text-green-800 mb-8">
         {editingId ? "Edit User" : "Add New User"}
       </h2>
@@ -303,5 +305,6 @@ export default function UserManagement() {
         </table>
       </div>
     </div>
+  </Layout>
   );
 }
