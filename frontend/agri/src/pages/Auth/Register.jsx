@@ -93,6 +93,7 @@ export default function Register() {
                 value={formData.full_name}
                 onChange={handleChange}
                 required
+                placeholder="Full Name"
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               />
             </div>
@@ -109,6 +110,7 @@ export default function Register() {
                 value={formData.phone_number}
                 onChange={handleChange}
                 required
+                placeholder="09********"
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               />
             </div>
@@ -124,6 +126,7 @@ export default function Register() {
                 value={formData.region}
                 onChange={handleChange}
                 required
+
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               >
                 <option value="">Select region</option>
@@ -160,6 +163,7 @@ export default function Register() {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                placeholder="********"
                 className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               />
               <button
@@ -184,6 +188,7 @@ export default function Register() {
                 value={formData.confirm_password}
                 onChange={handleChange}
                 required
+                placeholder="********"
                 className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               />
               <button

@@ -94,7 +94,7 @@ useEffect(() => {
           {weatherLoading ? (
             <p className="text-gray-600">Loading weather...</p>
           ) : weather ? (
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-8 rounded-2xl shadow-xl flex items-center gap-8">
+            <div className="bg-gradient-to-r from-blue-300 to-cyan-300 text-white p-8 rounded-2xl shadow-xl flex items-center gap-8">
               <img src={weather.icon} alt="weather" className="w-32 h-32" />
               <div>
                 <p className="text-5xl font-bold">{weather.temperature}°C</p>

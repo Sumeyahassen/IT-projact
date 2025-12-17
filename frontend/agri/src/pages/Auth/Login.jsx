@@ -77,6 +77,7 @@ export default function Login() {
                 value={phone_number}
                 onChange={(e) => setPhone(e.target.value)}
                 required
+                placeholder="09********"
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               />
             </div>
@@ -94,6 +95,7 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                placeholder="********"
                 className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"
               />
               <button
