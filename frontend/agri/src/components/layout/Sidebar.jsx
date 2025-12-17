@@ -17,7 +17,7 @@ const menuItems = {
   admin: [
     { to: '/admin', label: 'Dashboard', icon: HiHome },
     { to: '/admin/users', label: 'Manage Users', icon: HiUsers },
-    { to: '/admin/notifications', label: 'View Notifications', icon: HiBell },
+    { to: '/admin/notifications', label: ' Notifications', icon: HiBell },
     { to: '/admin/prices', label: 'View Prices', icon: HiCurrencyDollar },
   ],
   farmer: [
@@ -73,13 +73,7 @@ export default function Sidebar() {
                 {user.role?.toUpperCase() || 'GUEST'}
               </p>
             </div>
-            {/* Close button for mobile */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="lg:hidden text-white text-2xl"
-            >
-              <HiX />
-            </button>
+
           </div>
         </div>
 
@@ -97,7 +91,7 @@ export default function Sidebar() {
                   `group flex items-center gap-4 px-5 py-4 rounded-lg mb-2 transition-all duration-200 ${
                     isActive
                       ? 'bg-green-600 shadow-md font-semibold'
-                      : 'hover:bg-green-700 hover:translate-x-1'
+                      : 'hover:bg-green-400 hover:translate-x-1'
                   }`
                 }
               >
