@@ -73,3 +73,50 @@ exports.getQuestions = async (req, res) => {
     res.status(500).json({ message: 'Error fetching questions', error: error.message });
   }
 };
+// Farmer can edit their question (before answered)
+exports.editQuestion = async (req, res) => {
+  if (req.user.role !== 'farmer') {
+    return res.status(403).json({ message: 'Only farmer can edit their question' });
+  }
+
+  const { id } = req.params;
+  const { question } = req.body;
+
+  try {
+    const q = await FarmerQuestion.findByPk(id);
+    if (!q || q.asked_by !== req.user.id) {
+      return res.status(404).json({ message: 'Question not found or not yours' });
+    }
+
+    if (q.answered) {
+      return res.status(400).json({ message: 'Cannot edit answered question' });
+    }
+
+    await q.update({ question });
+    res.json({ message: 'Question updated', question: q });
+  } catch (error) {
+    res.status(500).json({ message: 'Error', error: error.message });
+  }
+};
+
+// Extension can edit their answer
+exports.editAnswer = async (req, res) => {
+  if (req.user.role !== 'extension') {
+    return res.status(403).json({ message: 'Only extension can edit answer' });
+  }
+
+  const { id } = req.params;
+  const { answer } = req.body;
+
+  try {
+    const q = await FarmerQuestion.findByPk(id);
+    if (!q || !q.answered) {
+      return res.status(404).json({ message: 'Answered question not found' });
+    }
+
+    await q.update({ answer });
+    res.json({ message: 'Answer updated', question: q });
+  } catch (error) {
+    res.status(500).json({ message: 'Error', error: error.message });
+  }
+};
