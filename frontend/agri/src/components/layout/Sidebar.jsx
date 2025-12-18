@@ -15,12 +15,13 @@ import {
 } from 'react-icons/hi';
 
 const menuItems = {
-  admin: [
-    { to: '/admin', label: 'Dashboard', icon: HiHome },
-    { to: '/admin/users', label: 'Manage Users', icon: HiUsers },
-    { to: '/admin/notifications', label: ' Notifications', icon: HiBell },
-    { to: '/admin/prices', label: 'View Prices', icon: HiCurrencyDollar },
-  ],
+ admin: [
+  { to: '/admin', label: 'Dashboard', icon: HiHome },
+  { to: '/admin/users', label: 'Manage Users', icon: HiUsers },
+  { to: '/admin/notifications', label: 'Notifications', icon: HiBell },
+  { to: '/admin/prices', label: 'Market Prices', icon: HiCurrencyDollar },
+  { to: '/admin/send-sms', label: 'Send Emergency SMS', icon: HiSpeakerphone }, // ← New
+],
   farmer: [
     { to: '/farmer', label: 'Dashboard', icon: HiHome },
     { to: '/farmer/prices', label: 'Market Prices', icon: HiCurrencyDollar },

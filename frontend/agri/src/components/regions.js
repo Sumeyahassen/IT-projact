@@ -1,0 +1,17 @@
+export const ETHIOPIAN_REGIONS = [
+  { value: '', label: 'All Regions (send to everyone)' },
+  { value: 'Addis Ababa', label: 'Addis Ababa' },
+  { value: 'Afar', label: 'Afar' },
+  { value: 'Amhara', label: 'Amhara' },
+  { value: 'Benishangul-Gumuz', label: 'Benishangul-Gumuz' },
+  { value: 'Central Ethiopia', label: 'Central Ethiopia' },
+  { value: 'Dire Dawa', label: 'Dire Dawa' },
+  { value: 'Gambela', label: 'Gambela' },
+  { value: 'Harari', label: 'Harari' },
+  { value: 'Oromia', label: 'Oromia' },
+  { value: 'Sidama', label: 'Sidama' },
+  { value: 'Somali', label: 'Somali' },
+  { value: 'South Ethiopia', label: 'South Ethiopia' },
+  { value: 'South West Ethiopia', label: 'South West Ethiopia' },
+  { value: 'Tigray', label: 'Tigray' },
+];

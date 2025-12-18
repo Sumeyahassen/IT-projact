@@ -8,7 +8,7 @@ import AdminDashboard from "./pages/Admin/Dashboard.jsx";
 import UserManagement from "./pages/Admin/UserManagement.jsx";
 import AdminNotifications from "./pages/Admin/Notifications.jsx";
 import AdminPrices from "./pages/Admin/Prices.jsx";
-
+import SendSMS from "./pages/Admin/SendSMS.jsx";
 import FarmerDashboard from "./pages/Farmer/Dashboard.jsx";
 import FarmerPrices from "./pages/Farmer/Prices.jsx";
 import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
@@ -34,12 +34,13 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Admin Protected Routes */}
-        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/users" element={<UserManagement />} />
-          <Route path="/admin/notifications" element={<AdminNotifications />} />
-          <Route path="/admin/prices" element={<AdminPrices />} />
-        </Route>
+       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+  <Route path="/admin" element={<AdminDashboard />} />
+  <Route path="/admin/users" element={<UserManagement />} />
+  <Route path="/admin/notifications" element={<AdminNotifications />} />
+  <Route path="/admin/prices" element={<AdminPrices />} />
+  <Route path="/admin/send-sms" element={<SendSMS />} /> {/* ← New */}
+</Route>
 
         {/* Farmer Protected Route */}
         <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>

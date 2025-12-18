@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
-
 import {
   FaMoneyBillWave,
   FaBullhorn,
@@ -15,21 +14,23 @@ import {
 
 /* ---------------- Animations ---------------- */
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
 
 const stagger = {
   visible: { transition: { staggerChildren: 0.2 } },
 };
 
-/* ---------------- Counter ---------------- */
-function AnimatedCounter({ end, label }) {
+/* ---------------- Animated Counter ---------------- */
+function AnimatedCounter({ end, label, suffix = "+" }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (end === 0) return;
+
     let start = 0;
-    const duration = 2000;
+    const duration = 2500;
     const increment = end / (duration / 16);
 
     const timer = setInterval(() => {
@@ -47,10 +48,10 @@ function AnimatedCounter({ end, label }) {
 
   return (
     <motion.div variants={fadeUp} className="text-center">
-      <h3 className="text-4xl sm:text-5xl font-bold">
-        {count.toLocaleString()}+
+      <h3 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-2xl">
+        {count.toLocaleString()}{suffix}
       </h3>
-      <p className="mt-2 opacity-90">{label}</p>
+      <p className="text-xl md:text-2xl mt-4 text-green-100 font-medium">{label}</p>
     </motion.div>
   );
 }
@@ -60,19 +61,19 @@ function FeatureCard({ icon: Icon, title, description }) {
   return (
     <motion.div
       variants={fadeUp}
-      whileHover={{ scale: 1.05 }}
-      className="bg-white p-6 rounded-xl shadow text-center"
+      whileHover={{ scale: 1.08, y: -10 }}
+      className="bg-white rounded-3xl shadow-2xl p-10 text-center hover:shadow-3xl transition-all duration-300"
     >
-      <div className="bg-green-100 w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-6">
-        <Icon className="text-3xl text-green-700" />
+      <div className="bg-gradient-to-br from-green-500 to-green-600 w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-8 shadow-lg">
+        <Icon className="text-4xl text-white" />
       </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 text-sm">{description}</p>
+      <h3 className="text-2xl md:text-3xl font-bold text-green-800 mb-4">{title}</h3>
+      <p className="text-gray-600 text-lg leading-relaxed">{description}</p>
     </motion.div>
   );
 }
 
-/* ---------------- Home ---------------- */
+/* ---------------- Home Page ---------------- */
 export default function Home() {
   const [stats, setStats] = useState({
     farmers: 0,
@@ -83,110 +84,131 @@ export default function Home() {
   const year = new Date().getFullYear();
 
   useEffect(() => {
+    // Fetch real stats from backend (public endpoint)
     axios
-      .get(
-        `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/users/stats`
-      )
-      .then((res) => setStats(res.data))
-      .catch(() =>
-        setStats({ farmers: 1247, agents: 89, extensions: 42 })
-      );
+      .get("http://localhost:5000/api/public/stats")
+      .then((res) => {
+        setStats(res.data);
+      })
+      .catch((err) => {
+        console.warn("Failed to load stats, using fallback:", err);
+        // Fallback dummy data
+        setStats({ farmers: 1247, agents: 89, extensions: 42 });
+      });
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* HERO */}
-      <section className="pt-16 pb-20 px-4">
+    <div className="min-h-screen">
+      {/* HERO SECTION WITH BACKGROUND IMAGE */}
+      <section
+        className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1593113598332-cd25d5c5a340?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')`,
+        }}
+      >
         <motion.div
           initial="hidden"
           animate="visible"
           variants={stagger}
-          className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center"
+          className="text-center text-white px-6 max-w-5xl z-10"
         >
-          <motion.div variants={fadeUp}>
-            <h1 className="text-4xl sm:text-5xl font-bold text-green-800">
-              Ethiopian Agri Platform
-            </h1>
-            <p className="mt-4 text-gray-700">
-              Connecting farmers with market prices, expert advice, and alerts.
-            </p>
-
-            <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/register"
-                className="bg-green-600 text-white px-6 py-3 rounded-lg text-center font-semibold"
-              >
-                Register
-              </Link>
-              <Link
-                to="/login"
-                className="border-2 border-green-600 text-green-700 px-6 py-3 rounded-lg text-center font-semibold"
-              >
-                Login
-              </Link>
-            </div>
-          </motion.div>
-
-          <motion.img
+          <motion.h1
             variants={fadeUp}
-            src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae"
-            alt="Ethiopian Farmer"
-            className="rounded-2xl shadow-lg w-full"
-          />
+            className="text-5xl md:text-7xl font-extrabold mb-8 drop-shadow-2xl"
+          >
+            Ethiopian Agri Platform
+          </motion.h1>
+
+          <motion.p
+            variants={fadeUp}
+            className="text-xl md:text-3xl mb-12 font-light max-w-3xl mx-auto drop-shadow-lg"
+          >
+            Empowering Ethiopian farmers with real-time market prices, expert advice, and emergency alerts.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col sm:flex-row gap-6 justify-center"
+          >
+            <Link
+              to="/register"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold text-xl px-10 py-5 rounded-full shadow-2xl transition transform hover:scale-105"
+            >
+              Register Now
+            </Link>
+            <Link
+              to="/login"
+              className="bg-white text-green-700 hover:bg-gray-100 font-bold text-xl px-10 py-5 rounded-full shadow-2xl border-4 border-green-600 transition transform hover:scale-105"
+            >
+              Login
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* STATS */}
-      <section className="bg-green-700 text-white py-16">
+      {/* STATS SECTION */}
+      <section className="bg-gradient-to-b from-green-700 to-green-900 py-20">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={stagger}
-          className="max-w-6xl mx-auto grid sm:grid-cols-3 gap-10 px-4"
+          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-6 text-center"
         >
           <AnimatedCounter end={stats.farmers} label="Farmers" />
-          <AnimatedCounter end={stats.agents} label="Agents" />
+          <AnimatedCounter end={stats.agents} label="Market Agents" />
           <AnimatedCounter end={stats.extensions} label="Extension Officers" />
         </motion.div>
       </section>
 
-      {/* FEATURES */}
-      <section className="py-20 px-4">
+      {/* FEATURES SECTION */}
+      <section className="py-24 px-6 bg-gray-50">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={stagger}
-          className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8"
+          className="max-w-7xl mx-auto"
         >
-          <FeatureCard
-            icon={FaMoneyBillWave}
-            title="Market Prices"
-            description="Daily updated prices."
-          />
-          <FeatureCard
-            icon={FaBullhorn}
-            title="Expert Advice"
-            description="Tips and farming guidance."
-          />
-          <FeatureCard
-            icon={FaExclamationTriangle}
-            title="Emergency Alerts"
-            description="Weather and pest warnings."
-          />
+          <motion.h2
+            variants={fadeUp}
+            className="text-4xl md:text-5xl font-bold text-center text-green-800 mb-16"
+          >
+            What We Offer
+          </motion.h2>
+
+          <div className="grid md:grid-cols-3 gap-12">
+            <FeatureCard
+              icon={FaMoneyBillWave}
+              title="Real-Time Market Prices"
+              description="Agents update daily crop prices from markets across Ethiopia so farmers can sell at the best rate."
+            />
+            <FeatureCard
+              icon={FaBullhorn}
+              title="Expert Farming Advice"
+              description="Extension officers share pest alerts, planting tips, and best practices directly to farmers."
+            />
+            <FeatureCard
+              icon={FaExclamationTriangle}
+              title="Emergency Alerts"
+              description="Instant warnings for drought, flood, locusts, or disease outbreaks to protect crops and livestock."
+            />
+          </div>
         </motion.div>
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-green-800 text-white py-10 text-center">
-        <div className="flex justify-center gap-6 text-xl mb-4">
-          <FaFacebook />
-          <FaTelegram />
-          <FaPhone />
-          <FaEnvelope />
+      <footer className="bg-green-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h3 className="text-3xl font-bold mb-8">Connect With Us</h3>
+          <div className="flex justify-center gap-10 text-4xl mb-10">
+            <a href="#" className="hover:text-green-300 transition"><FaFacebook /></a>
+            <a href="#" className="hover:text-green-300 transition"><FaTelegram /></a>
+            <a href="#" className="hover:text-green-300 transition"><FaPhone /></a>
+            <a href="#" className="hover:text-green-300 transition"><FaEnvelope /></a>
+          </div>
+          <p className="text-lg">© {year} Ethiopian Agri Platform. Made for farmers, by farmers.</p>
         </div>
-        <p>© {year} Ethiopian Agri Platform</p>
       </footer>
     </div>
   );
