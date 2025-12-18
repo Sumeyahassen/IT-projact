@@ -98,3 +98,21 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+exports.getPublicStats = async (req, res) => {
+  try {
+    const stats = await User.findAll({
+      attributes: ['role'],
+    });
+
+    const counts = stats.reduce((acc, user) => {
+      if (user.role === 'farmer') acc.farmers++;
+      if (user.role === 'agent') acc.agents++;
+      if (user.role === 'extension') acc.extensions++;
+      return acc;
+    }, { farmers: 0, agents: 0, extensions: 0 });
+
+    res.json(counts);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching stats' });
+  }
+};

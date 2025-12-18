@@ -25,6 +25,8 @@ app.use('/api/prices', require('./routes/priceRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/sms', require('./routes/smsRoutes'));
 app.use('/api/questions', require('./routes/farmerQuestionRoutes'));
+// Public routes (no token needed)
+app.use('/api/public', require('./routes/publicRoutes'));
 // Protected test route (optional)
 const { verifyToken, requireAdmin } = require('./middleware/authMiddleware');
 app.get('/api/admin/test', verifyToken, requireAdmin, (req, res) => {
