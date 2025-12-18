@@ -98,7 +98,17 @@ const LocalProduct = sequelize.define('LocalProduct', {
 
 LocalProduct.belongsTo(User, { foreignKey: 'added_by', as: 'farmer' });
 User.hasMany(LocalProduct, { foreignKey: 'added_by', as: 'localProducts' });
+// Farmer Question
+const FarmerQuestion = sequelize.define('FarmerQuestion', {
+  question: { type: DataTypes.TEXT, allowNull: false },
+  answer: { type: DataTypes.TEXT, allowNull: true },
+  answered: { type: DataTypes.BOOLEAN, defaultValue: false },
+  region: DataTypes.STRING,
+  asked_by: DataTypes.INTEGER,
+});
 
+FarmerQuestion.belongsTo(User, { foreignKey: 'asked_by', as: 'farmer' });
+User.hasMany(FarmerQuestion, { foreignKey: 'asked_by', as: 'questions' });
 // Export
 module.exports = {
   sequelize,
@@ -106,4 +116,5 @@ module.exports = {
   ProductPrice,
   Notification,
   LocalProduct,
+  FarmerQuestion,
 };
