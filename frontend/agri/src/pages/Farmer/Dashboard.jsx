@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api.js";
 import Layout from "../../components/layout/Layout.jsx";
-import AskQuestion from "./AskQuestion.jsx";
+
 
 export default function FarmerDashboard() {
   const [prices, setPrices] = useState([]);
@@ -209,7 +209,7 @@ useEffect(() => {
             </div>
           )}
         </section>
-   
+
 
       </div>
     </Layout>

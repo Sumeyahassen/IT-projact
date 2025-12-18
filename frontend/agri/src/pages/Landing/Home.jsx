@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import bg from '../../assets/bg.png'
 import {
   FaMoneyBillWave,
   FaBullhorn,
@@ -101,10 +102,10 @@ export default function Home() {
     <div className="min-h-screen">
       {/* HERO SECTION WITH BACKGROUND IMAGE */}
       <section
-        className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1593113598332-cd25d5c5a340?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')`,
-        }}
+         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+  style={{
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${bg})`,
+  }}
       >
         <motion.div
           initial="hidden"
@@ -116,7 +117,7 @@ export default function Home() {
             variants={fadeUp}
             className="text-5xl md:text-7xl font-extrabold mb-8 drop-shadow-2xl"
           >
-            Ethiopian Agri Platform
+            Ethiopian Agri Link
           </motion.h1>
 
           <motion.p

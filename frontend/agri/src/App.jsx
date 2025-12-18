@@ -12,6 +12,7 @@ import SendSMS from "./pages/Admin/SendSMS.jsx";
 import FarmerDashboard from "./pages/Farmer/Dashboard.jsx";
 import FarmerPrices from "./pages/Farmer/Prices.jsx";
 import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
+import MyQuestions from "./pages/Farmer/MyQuestions.jsx";
 import AddLocalPrice from "./pages/Farmer/AddLocalPrice.jsx";
 import AskQuestion from "./pages/Farmer/AskQuestion.jsx";
 import AgentDashboard from "./pages/Agent/Dashboard.jsx";
@@ -34,13 +35,13 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Admin Protected Routes */}
-       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-  <Route path="/admin" element={<AdminDashboard />} />
-  <Route path="/admin/users" element={<UserManagement />} />
-  <Route path="/admin/notifications" element={<AdminNotifications />} />
-  <Route path="/admin/prices" element={<AdminPrices />} />
-  <Route path="/admin/send-sms" element={<SendSMS />} /> {/* ← New */}
-</Route>
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<UserManagement />} />
+          <Route path="/admin/notifications" element={<AdminNotifications />} />
+          <Route path="/admin/prices" element={<AdminPrices />} />
+          <Route path="/admin/send-sms" element={<SendSMS />} /> {/* ← New */}
+        </Route>
 
         {/* Farmer Protected Route */}
         <Route element={<ProtectedRoute allowedRoles={["farmer"]} />}>
@@ -51,8 +52,8 @@ function App() {
             element={<FarmerNotifications />}
           />
           <Route path="/farmer/add-local-price" element={<AddLocalPrice />} />
-          <Route path="/farmer/ask-question" element={<AskQuestion />} />{" "}
-          {/* ← New route */}
+          <Route path="/farmer/ask-question" element={<AskQuestion />} />
+          <Route path="/farmer/my-questions" element={<MyQuestions />} />
         </Route>
 
         {/* Agent Protected Route */}
@@ -74,7 +75,10 @@ function App() {
             path="/extension/sent-notifications"
             element={<SentNotifications />}
           />
-          <Route path="/extension/farmer-questions" element={<FarmerQuestions />} />
+          <Route
+            path="/extension/farmer-questions"
+            element={<FarmerQuestions />}
+          />
         </Route>
 
         {/* 404 - Not Found */}

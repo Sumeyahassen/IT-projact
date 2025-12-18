@@ -1,15 +1,24 @@
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
+import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 export default function Layout({ children }) {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden  ">
+
+      {/* Sidebar */}
       <Sidebar />
-      <div className="flex-1 lg:ml-64">
+
+      {/* Main area */}
+      <div className="lg:ml-64 flex flex-col min-h-screen mt-10">
+
+        {/* Fixed Navbar */}
         <Navbar />
-        <main className="p-4 md:p-8">
+
+        {/* IMPORTANT: pt-16 MUST match navbar height */}
+        <main className="pt-16 p-4 md:p-8 flex-1 overflow-y-auto">
           {children}
         </main>
+
       </div>
     </div>
   );
