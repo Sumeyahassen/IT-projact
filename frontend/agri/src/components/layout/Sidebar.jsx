@@ -11,6 +11,7 @@ import {
   HiClipboardList,
   HiMenu,
   HiX,
+  HiQuestionMarkCircle,
 } from 'react-icons/hi';
 
 const menuItems = {
@@ -25,6 +26,7 @@ const menuItems = {
     { to: '/farmer/prices', label: 'Market Prices', icon: HiCurrencyDollar },
     { to: '/farmer/notifications', label: 'Notifications', icon: HiBell },
     { to: '/farmer/add-local-price', label: 'Add Local Price', icon: HiPlusCircle },
+    { to: '/farmer/ask-question', label: 'Ask Question', icon: HiQuestionMarkCircle },
   ],
   agent: [
     { to: '/agent', label: 'Dashboard', icon: HiHome },
@@ -35,6 +37,7 @@ const menuItems = {
     { to: '/extension', label: 'Dashboard', icon: HiHome },
     { to: '/extension/send-notification', label: 'Send Notification', icon: HiSpeakerphone },
     { to: '/extension/sent-notifications', label: 'View Sent', icon: HiClipboardList },
+    { to: '/extension/farmer-questions', label: 'Farmer Questions', icon: HiQuestionMarkCircle },
   ],
 };
 

@@ -13,19 +13,17 @@ import FarmerDashboard from "./pages/Farmer/Dashboard.jsx";
 import FarmerPrices from "./pages/Farmer/Prices.jsx";
 import FarmerNotifications from "./pages/Farmer/Notifications.jsx";
 import AddLocalPrice from "./pages/Farmer/AddLocalPrice.jsx";
+import AskQuestion from "./pages/Farmer/AskQuestion.jsx";
 import AgentDashboard from "./pages/Agent/Dashboard.jsx";
 import PriceManagement from "./pages/Agent/PriceManagement.jsx";
 import UpdatePrice from "./pages/Agent/UpdatePrice.jsx";
 import ViewPrices from "./pages/Agent/ViewPrices.jsx";
 import ExtensionDashboard from "./pages/Extension/Dashboard.jsx";
 import SentNotifications from "./pages/Extension/SendNotification.jsx";
-
+import FarmerQuestions from "./pages/Extension/FarmerQuestions.jsx";
 import Home from "./pages/Landing/Home.jsx";
 import NotFound from "./pages/NotFound.jsx";
-
 import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
-import PriceUpdate from "./pages/Agent/UpdatePrice.jsx";
-
 function App() {
   return (
     <Router>
@@ -52,6 +50,8 @@ function App() {
             element={<FarmerNotifications />}
           />
           <Route path="/farmer/add-local-price" element={<AddLocalPrice />} />
+          <Route path="/farmer/ask-question" element={<AskQuestion />} />{" "}
+          {/* ← New route */}
         </Route>
 
         {/* Agent Protected Route */}
@@ -73,6 +73,7 @@ function App() {
             path="/extension/sent-notifications"
             element={<SentNotifications />}
           />
+          <Route path="/extension/farmer-questions" element={<FarmerQuestions />} />
         </Route>
 
         {/* 404 - Not Found */}

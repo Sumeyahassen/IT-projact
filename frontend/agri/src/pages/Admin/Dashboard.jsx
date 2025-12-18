@@ -36,8 +36,9 @@ export default function AdminDashboard() {
         </div>
 
         {/* User Management Section */}
-        <UserManagement />
+  <UserManagement />
       </div>
+
     </Layout>
   );
 }

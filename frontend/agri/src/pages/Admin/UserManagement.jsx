@@ -111,8 +111,7 @@ export default function UserManagement() {
   });
 
   return (
-  <Layout>
-      <div className="bg-white rounded-xl shadow-lg p-8">
+ <div className="bg-white rounded-xl shadow-lg p-8">
       <h2 className="text-3xl font-bold text-green-800 mb-8">
         {editingId ? "Edit User" : "Add New User"}
       </h2>
@@ -305,6 +304,5 @@ export default function UserManagement() {
         </table>
       </div>
     </div>
-  </Layout>
   );
 }
