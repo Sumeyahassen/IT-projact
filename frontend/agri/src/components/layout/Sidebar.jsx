@@ -97,7 +97,8 @@ export default function Sidebar() {
         </div>
 
         {/* Menu */}
-        <nav className="mt-6 px-4 flex-1 overflow-y-auto">
+       <nav className="mt-6 px-4 overflow-y-auto scrollbar-thin scrollbar-thumb-green-700 scrollbar-track-green-900">
+
           {items.map((item) => {
             const Icon = item.icon;
             return (

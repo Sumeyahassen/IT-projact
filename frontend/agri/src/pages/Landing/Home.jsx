@@ -208,7 +208,7 @@ export default function Home() {
             <a href="#" className="hover:text-green-300 transition"><FaPhone /></a>
             <a href="#" className="hover:text-green-300 transition"><FaEnvelope /></a>
           </div>
-          <p className="text-lg">© {year} Ethiopian Agri Platform. Made for farmers, by farmers.</p>
+          <p className="text-lg">© {year} Ethiopian Agri Link. Made for farmers, by farmers.</p>
         </div>
       </footer>
     </div>
