@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware - MUST BE BEFORE ROUTES
-app.use(cors());
+app.use(cors())
 app.use(express.json());  // ← This parses JSON body — critical!
 app.use('/api/local-products', require('./routes/localProductRoutes'));
 app.use('/api/weather', require('./routes/weatherRoutes'));
