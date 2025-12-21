@@ -36,7 +36,7 @@ export default function SendSMS() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto p-8">
+      <div className="max-w-4xl mx-auto p-8 font-serif">
         <h1 className="text-4xl font-bold text-green-800 mb-8">Send Emergency SMS</h1>
 
         <p className="text-xl text-gray-700 mb-10">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
 import Layout from '../../components/layout/Layout';
-
+import { FaCalendarAlt, FaMapMarkedAlt } from 'react-icons/fa';
 export default function SentNotifications() {
   const [notifications, setNotifications] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -89,13 +89,13 @@ export default function SentNotifications() {
   return (
     <Layout>
       <div className="p-8 max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-12 text-center">
-          My Sent Notifications
+        <h1 className="text-4xl md:text-5xl font-bold text-green-950 mb-12 text-center font-serif">
+           Sent Notifications
         </h1>
 
         {/* Action Message */}
         {actionMessage && (
-          <div className={`p-6 rounded-xl mb-10 text-center text-xl font-medium shadow-lg ${
+          <div className={`p-6 rounded-xl mb-10 text-center text-xl font-medium shadow-lg font-serif ${
             actionMessage.includes('successfully')
               ? 'bg-green-100 text-green-700 border-2 border-green-500'
               : 'bg-red-100 text-red-700 border-2 border-red-500'
@@ -186,27 +186,27 @@ export default function SentNotifications() {
                     <div className="flex flex-wrap gap-6 text-lg mb-10">
                       {n.region && (
                         <span className="bg-blue-100 text-blue-800 px-5 py-3 rounded-full font-medium">
-                          📍 Sent to: {n.region}
+                          <FaMapMarkedAlt /> Sent to: {n.region}
                         </span>
                       )}
                       <span className="bg-purple-100 text-purple-800 px-5 py-3 rounded-full font-medium">
                         👨‍🌾 From: {n.extension?.full_name || 'You'}
                       </span>
                       <span className="bg-gray-100 text-gray-700 px-5 py-3 rounded-full">
-                        📅 Sent on: {new Date(n.createdAt).toLocaleDateString('en-GB')}
+                        <FaCalendarAlt /> Sent on: {new Date(n.createdAt).toLocaleDateString('en-GB')}
                       </span>
                     </div>
 
                     <div className="flex gap-6">
                       <button
                         onClick={() => handleEdit(n)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-md"
+                        className="bg-blue-600 hover:bg-blue-700 font-serif  text-white font-bold py-3 px-8 rounded-lg transition shadow-md"
                       >
                         Edit Notification
                       </button>
                       <button
                         onClick={() => handleDelete(n.id)}
-                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-md"
+                        className="font-serif bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-md"
                       >
                         Delete Notification
                       </button>

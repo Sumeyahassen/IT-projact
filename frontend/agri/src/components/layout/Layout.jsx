@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 
 export default function Layout({ children }) {
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden  ">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden font-serif ">
 
       {/* Sidebar */}
       <Sidebar />

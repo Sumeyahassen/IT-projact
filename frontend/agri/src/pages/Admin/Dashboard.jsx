@@ -9,10 +9,10 @@ export default function AdminDashboard() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto ">
-        <h1 className="text-4xl font-bold text-green-800 ">
+        <h1 className="text-4xl font-bold text-green-800 font-serif ">
           Admin Dashboard
         </h1>
-        <p className="text-xl text-gray-700 mb-10">
+        <p className="text-xl text-gray-700 mb-10 font-serif">
           Welcome back, <span className="font-semibold">{user.full_name}</span>
         </p>
 

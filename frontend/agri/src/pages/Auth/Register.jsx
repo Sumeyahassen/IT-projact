@@ -58,7 +58,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center px-4 font-serif">
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl p-8">
 
         {/* Header */}

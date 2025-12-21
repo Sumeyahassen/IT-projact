@@ -75,7 +75,7 @@ export default function Sidebar() {
         } lg:translate-x-0 lg:w-64 w-64 flex flex-col`}
       >
         {/* Header */}
-        <div className="p-4 border-b border-green-700">
+        <div className="p-4 border-b border-green-700 font-serif">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-center lg:text-left pt-10 justify-center">
