@@ -11,13 +11,18 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());  // Parses JSON body — must be here
 
+// Debug middleware: log every incoming body (remove after testing)
+app.use((req, res, next) => {
+  if (req.method === 'POST' || req.method === 'PUT') {
+    console.log(`[${req.method}] ${req.path} - Body:`, req.body);
+  }
+  next();
+});
+
 // Routes — ALL after middleware
 app.use('/api/local-products', require('./routes/localProductRoutes'));
 app.use('/api/weather', require('./routes/weatherRoutes'));
-
-// FIXED: Only ONE line for /api/auth
 app.use('/api/auth', require('./routes/authRoutes'));
-
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/prices', require('./routes/priceRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
