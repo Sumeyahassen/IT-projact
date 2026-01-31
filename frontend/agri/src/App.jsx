@@ -25,6 +25,7 @@ import FarmerQuestions from "./pages/Extension/FarmerQuestions.jsx";
 import Home from "./pages/Landing/Home.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ProtectedRoute from "./components/common/ProtectedRoute.jsx";
+import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
 function App() {
   return (
     <Router>
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Admin Protected Routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>

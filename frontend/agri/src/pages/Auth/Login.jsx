@@ -129,6 +129,15 @@ export default function Login() {
             Register here
           </Link>
         </p>
+        <p className="text-center mt-6 text-gray-600 text-sm">
+          <Link
+            to="/forgot-password"
+            className="text-green-600 hover:underline font-medium"
+          >
+           Forgot Password?
+          </Link>
+        </p>
+
 
       </div>
     </div>
