@@ -2,14 +2,11 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 
-// Add this line — critical for parsing JSON in this router
+// ADD THIS LINE RIGHT HERE — this is the fix
 router.use(express.json());
 
-
-// POST /api/auth/register
+// Your routes
 router.post('/register', authController.register);
-
-// POST /api/auth/login
 router.post('/login', authController.login);
 
 module.exports = router;
