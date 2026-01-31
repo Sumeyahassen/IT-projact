@@ -9,12 +9,15 @@ const PORT = process.env.PORT || 5000;
 
 // CRITICAL: Middleware FIRST — before ANY routes
 app.use(cors());
-app.use(express.json());  // This MUST be here to parse JSON body
+app.use(express.json());  // Parses JSON body — must be here
 
 // Routes — ALL after middleware
 app.use('/api/local-products', require('./routes/localProductRoutes'));
 app.use('/api/weather', require('./routes/weatherRoutes'));
+
+// FIXED: Only ONE line for /api/auth
 app.use('/api/auth', require('./routes/authRoutes'));
+
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/prices', require('./routes/priceRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
@@ -39,7 +42,7 @@ async function startServer() {
     await sequelize.authenticate();
     console.log('✅ Database connected successfully');
 
-    // Sync models (alter: true = safe for production, adds columns without dropping data)
+    // Sync models safely (adds columns without dropping data)
     await sequelize.sync({ alter: true });
     console.log('✅ Models synced successfully');
 
