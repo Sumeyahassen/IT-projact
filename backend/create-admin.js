@@ -1,32 +1,61 @@
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
-const User = require('./models/User');
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
+  logging: false
+});
+
+const User = sequelize.define('User', {
+  username: { type: Sequelize.STRING, allowNull: false },
+  phone: { type: Sequelize.STRING, allowNull: false, unique: true },
+  password: { type: Sequelize.STRING, allowNull: false },
+  role: { type: Sequelize.ENUM('farmer', 'agent', 'extension', 'admin'), defaultValue: 'farmer' },
+  region: { type: Sequelize.STRING, defaultValue: 'Addis Ababa' }
+});
+
+User.beforeCreate(async (user) => {
+  user.password = await bcrypt.hash(user.password, 10);
+});
 
 async function createAdmin() {
   try {
-    const password = 'admin123';  // Change this later!
-    const password_hash = await bcrypt.hash(password, 10);
+    // 1. Connect & authenticate
+    await sequelize.authenticate();
+    console.log('Connected to Render database');
 
-    const admin = await User.create({
-      full_name: 'Super Admin',
-      phone_number: '0911111111',  // Use any phone number
-      region: 'Addis Ababa',
+    // 2. Create or sync the Users table (safe - won't delete data)
+    await sequelize.sync({ alter: true });
+    console.log('Users table is ready (created or already exists)');
+
+    // 3. Check if admin already exists
+    const existing = await User.findOne({ where: { phone: '0911111111' } });
+    if (existing) {
+      console.log('Admin already exists.');
+      process.exit(0);
+    }
+
+    // 4. Create admin
+    await User.create({
+      username: 'SuperAdmin',
+      phone: '0911111111',
+      password: 'admin123',
       role: 'admin',
-      password_hash,
+      region: 'Addis Ababa'
     });
 
-    console.log('✅ Admin user created successfully!');
+    console.log('✅ Admin created successfully in cloud database!');
     console.log('Login with:');
     console.log('Phone: 0911111111');
     console.log('Password: admin123');
-    console.log('\n⚠️  Change the password immediately after first login!');
+    console.log('\n⚠️ Change password immediately after first login!');
 
     process.exit(0);
   } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      console.log('Admin already exists.');
-    } else {
-      console.error('Error:', error.message);
-    }
+    console.error('Error:', error.message);
     process.exit(1);
   }
 }
