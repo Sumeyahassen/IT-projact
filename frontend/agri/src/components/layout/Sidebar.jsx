@@ -70,19 +70,19 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-full bg-green-800 text-white z-[55] transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 h-full bg-green-700 text-white z-[55] transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 lg:w-64 w-64 flex flex-col`}
       >
         {/* Header */}
-        <div className="p-4 border-b border-green-700 font-serif">
+        <div className="p-4 border-b border-green-700 font-serif ">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-center lg:text-left pt-10 justify-center">
+              <h2 className="text-2xl font-bold text-center lg:text-left pt-10  ">
                 <img
                   src={logo}
                   alt="logo"
-                  className="w-12 h-12 object-contain rounded-full mx-auto lg:mx-0"
+                  className="w-12 h-12 object-contain rounded-full mx-auto lg:mx-0 "
                 />{' '}
                 Agri Link
               </h2>

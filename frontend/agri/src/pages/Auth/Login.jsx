@@ -19,7 +19,7 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/auth/login`,
+        `${import.meta.env.VITE_API_URL || "https://it-projact.onrender.com"}/api/auth/login`,
         { phone_number, password }
       );
 

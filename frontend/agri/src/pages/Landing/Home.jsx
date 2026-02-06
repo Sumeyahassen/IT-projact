@@ -87,7 +87,7 @@ export default function Home() {
   useEffect(() => {
     // Fetch real stats from backend (public endpoint)
     axios
-      .get("http://localhost:5000/api/public/stats")
+      .get("https://it-projact.onrender.com/api/public/stats")
       .then((res) => {
         setStats(res.data);
       })
